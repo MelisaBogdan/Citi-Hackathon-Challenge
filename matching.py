@@ -149,7 +149,7 @@ def build_dict_list(interns):
     dict_list = []
     for intern in interns:
         # print(f"{intern.name} - {intern.assigned_buddy[0].name} - {intern.assigned_buddy[1] / 7 * 100}")
-        dict_list.append({ "name": intern.name, "buddy": intern.assigned_buddy[0].name if intern.assigned_buddy else None, "score": intern.assigned_buddy[1] / 7 * 100 if intern.assigned_buddy else None})
+        dict_list.append({ "intern": intern.name, "buddy": intern.assigned_buddy[0].name if intern.assigned_buddy else None, "score": str(round(intern.assigned_buddy[1] / 7 * 100, 2)) if intern.assigned_buddy else None})
     return dict_list
 
 def get_all_interns():
@@ -163,6 +163,16 @@ def get_all_interns():
     unassigned_interns = identify_unassigned_interns(interns)
     reassign_buddies(unassigned_interns)
     assignments_dict_list = build_dict_list(interns)
+
+    for intern in interns:
+        print(intern.name)
+        print(intern.location)
+        print(intern.lob)
+        if intern.assigned_buddy:
+            print(intern.assigned_buddy[0].name)
+            print(intern.assigned_buddy[0].location)
+            print(intern.assigned_buddy[0].lob)
+        print("-----")
 
     print(assignments_dict_list)
 
