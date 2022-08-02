@@ -70,9 +70,11 @@ def create_objects(buddies_csv, interns_csv):
 
 def filter_by_lob_location(interns):
     for intern in interns:
+        new_potential_buddies = []
         for potential_buddy in intern.potential_buddies:
-            if potential_buddy.lob == intern.lob or potential_buddy.location != intern.location:
-                intern.potential_buddies.remove(potential_buddy)
+            if potential_buddy.lob != intern.lob and potential_buddy.location == intern.location:
+                new_potential_buddies.append(potential_buddy)
+        intern.potential_buddies = new_potential_buddies
 
 def build_compatibility_score(interns):
     for intern in interns:
@@ -147,7 +149,7 @@ def build_dict_list(interns):
     dict_list = []
     for intern in interns:
         # print(f"{intern.name} - {intern.assigned_buddy[0].name} - {intern.assigned_buddy[1] / 7 * 100}")
-        dict_list.append({ "name": intern.name, "buddy": intern.assigned_buddy[0].name, "score": intern.assigned_buddy[1] / 7 * 100})
+        dict_list.append({ "name": intern.name, "buddy": intern.assigned_buddy[0].name if intern.assigned_buddy else None, "score": intern.assigned_buddy[1] / 7 * 100 if intern.assigned_buddy else None})
     return dict_list
 
 def get_all_interns():
@@ -163,6 +165,9 @@ def get_all_interns():
     assignments_dict_list = build_dict_list(interns)
 
     print(assignments_dict_list)
+
+    for assignment in assignments_dict_list:
+        print(assignment)
 
     return assignments_dict_list
 
