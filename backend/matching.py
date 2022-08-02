@@ -164,5 +164,7 @@ def get_all_interns():
 
     print(assignments_dict_list)
 
+    return assignments_dict_list
+
 if __name__ == "__main__":
     get_all_interns()
