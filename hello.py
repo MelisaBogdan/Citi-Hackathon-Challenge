@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import jsonify
 
-from matching_algo import get_all_interns
+from matching import get_all_interns
 
 app = Flask(__name__)
 app.debug= True
@@ -12,4 +12,5 @@ def hello_world():
 @app.route("/api")
 def me_api():
     interns = get_all_interns()
+    print(interns)
     return jsonify([intern for intern in interns])
